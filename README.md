@@ -18,8 +18,3 @@ sort_algorithms.py Contains a code for:
 4. Merge sort
 
 The file compares thier running times and plots the results.
-
-## Dynamical programming ##
-
-## Binary search ##
-
