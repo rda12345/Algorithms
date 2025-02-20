@@ -5,12 +5,11 @@ Algorithms:
 
 ## Sorting algorithms ##
 
-sort_compnarison.py Contains a code for:
+sort_algorithms.py Contains a code for:
   1. Inspection sort
   2. Bubble sort
   3. Selection sort
   4. Merge sort
-  5. Quick sort
 
 The file compares thier running times and plots the results.
 
