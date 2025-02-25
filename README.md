@@ -18,3 +18,6 @@ sort_algorithms.py Contains a code for:
 4. Merge sort
 
 The file compares thier running times and plots the results.
+
+## Matrix multipication ##
+1. Strassen algorithm
