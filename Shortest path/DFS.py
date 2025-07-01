@@ -4,7 +4,6 @@
 Depth first search of the the shortest path betwwen two points on a graph
 """
 from graph import Node,Edge,Graph
-from queue import Queue
 
 
 def DFS(graph,start,end,path,shortest = None):
@@ -20,7 +19,7 @@ def DFS(graph,start,end,path,shortest = None):
         return: shortest path if exists.
     '''
     path = path + [start]
-    print('Path: ',[str(node) for node  in path])
+    #print('Path: ',[str(node) for node  in path])
     if start == end:
         return path
     elif shortest == None or len(path) < len(shortest):
@@ -32,36 +31,29 @@ def DFS(graph,start,end,path,shortest = None):
                         
     return shortest
 
-
-
-## Test
-
-### Building graph
 """
-g = Graph()
-# Introducing nodes
-nodes = []
-for i in range(6):
-    nodes.append(Node(str(i)))
-# Adding them to the graph
-for node in nodes:
-    g.add_node(node)
+## Test
+if __name__ == "__main__":
+
+    ### Building graph
+    g = Graph()
+    # Introducing nodes
+    nodes = []
+    for i in range(6):
+        nodes.append(Node(str(i)))
+    # Adding them to the graph
+    for node in nodes:
+        g.add_node(node)
     
 
 
-# Adding edges to the graph
-g.add_edge(Edge(nodes[0],nodes[1]))
-g.add_edge(Edge(nodes[1],nodes[2]))
-g.add_edge(Edge(nodes[2],nodes[3]))
-g.add_edge(Edge(nodes[2],nodes[4]))
-g.add_edge(Edge(nodes[3],nodes[4]))
-g.add_edge(Edge(nodes[3],nodes[5]))
-g.add_edge(Edge(nodes[0],nodes[2]))
-g.add_edge(Edge(nodes[1],nodes[0]))
-g.add_edge(Edge(nodes[3],nodes[1]))
-g.add_edge(Edge(nodes[4],nodes[0]))
-g.add_edge(Edge(nodes[0],nodes[5]))
+    # Adding edges to the graph
+    tuples = [(0,1),(1,2),(2,3),(2,4),(3,4),(3,5),(0,2),(1,0),(3,1),(4,0),(0,5)]
+    for tup in tuples:    
+        g.add_edge(Edge(nodes[tup[0]],nodes[tup[1]]))
+
         
-shortest_path = DFS(g,nodes[0],nodes[5],[],shortest = None)
-print('DFS Shortest path: ',[str(x) for x in shortest_path],'\n ')
+    shortest_path = DFS(g,nodes[0],nodes[5],[],shortest = None)
+    
+    print('DFS Shortest path: ',[str(x) for x in shortest_path],'\n ')
 """

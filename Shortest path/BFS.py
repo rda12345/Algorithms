@@ -27,7 +27,7 @@ def BFS(graph,start,end,path,shortest = None):
             # Add the nodes to the queue
             if node not in temp_path:  # To prevent loops
                 new_path = temp_path + [node]
-                print('Path: ', [str(x) for x in new_path])
+                #print('Path: ', [str(x) for x in new_path])
                 path_queue.put(new_path)
                 if node == end:
                     if shortest == None or len(new_path) < len(shortest):
@@ -36,33 +36,26 @@ def BFS(graph,start,end,path,shortest = None):
             
 ## Test
 
-### Building graph
-"""
-g = Graph()
-# Introducing nodes
-nodes = []
-for i in range(6):
-    nodes.append(Node(str(i)))
-# Adding them to the graph
-for node in nodes:
-    g.add_node(node)
+if __name__ == "__main__" :
+    
+    ## Building graph
+    g = Graph()
+    # Introducing nodes
+    nodes = []
+    for i in range(6):
+        nodes.append(Node(str(i)))
+    # Adding them to the graph
+    for node in nodes:
+        g.add_node(node)
     
 
 
-# Adding edges to the graph
-g.add_edge(Edge(nodes[0],nodes[1]))
-g.add_edge(Edge(nodes[1],nodes[2]))
-g.add_edge(Edge(nodes[2],nodes[3]))
-g.add_edge(Edge(nodes[2],nodes[4]))
-g.add_edge(Edge(nodes[3],nodes[4]))
-g.add_edge(Edge(nodes[3],nodes[5]))
-g.add_edge(Edge(nodes[0],nodes[2]))
-g.add_edge(Edge(nodes[1],nodes[0]))
-g.add_edge(Edge(nodes[3],nodes[1]))
-g.add_edge(Edge(nodes[4],nodes[0]))
-g.add_edge(Edge(nodes[0],nodes[5]))
+
+    # Adding edges to the graph
+    tuples = [(0,1),(1,2),(2,3),(2,4),(3,4),(3,5),(0,2),(1,0),(3,1),(4,0),(0,5)]
+    for tup in tuples:    
+        g.add_edge(Edge(nodes[tup[0]],nodes[tup[1]]))
         
 
-shortest_path = BFS(g,nodes[0],nodes[5],[],shortest = None)
-print('BFS Shortest path: ',[str(x) for x in shortest_path])
-"""
+    shortest_path = BFS(g,nodes[0],nodes[5],[],shortest = None)
+    print('BFS Shortest path: ',[str(x) for x in shortest_path])
