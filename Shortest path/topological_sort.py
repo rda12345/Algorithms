@@ -27,10 +27,6 @@ def topological_sort(graph,source):
 
 
 def DFS_visit(g,v,r):
-    
-    #print(f'v: {v}')
-    #[print(i) for i in g.edges[v]]
-    
     for n in g.edges[v]:
         if n not in r.parents:
             r.parents[n] = v
