@@ -33,7 +33,8 @@ def BFS(graph,start,end,path,shortest = None):
                     if shortest == None or len(new_path) < len(shortest):
                         shortest = new_path        
     return shortest
-            
+ 
+"""           
 ## Test
 
 if __name__ == "__main__" :
@@ -59,3 +60,4 @@ if __name__ == "__main__" :
 
     shortest_path = BFS(g,nodes[0],nodes[5],[],shortest = None)
     print('BFS Shortest path: ',[str(x) for x in shortest_path])
+"""
