@@ -46,18 +46,12 @@ def dijkstra(graph,source):
     """
     distances = {}
     parents = {}
-    inf = 2**50  
+    inf = 2**50     
     #initializing distances and parents
     for node in graph.nodes:
         distances[node] = inf
         parents[node] = None
     distances[source] = 0
-    
-    #creating a weights dictionary
-    #for edge in graph.edges:
-        #print(edge)
-        #print(type(edge))
-        #weights[(edge.get_source(),edge.get_destination())] = edge.get_weight()
     
     frontier = Heap()
     frontier.insert(source)
