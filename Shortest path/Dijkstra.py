@@ -46,7 +46,7 @@ def dijkstra(graph,source):
     """
     distances = {}
     parents = {}
-    inf = 2**50     
+    inf = float('inf')    
     #initializing distances and parents
     for node in graph.nodes:
         distances[node] = inf
