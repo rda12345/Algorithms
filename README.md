@@ -1,5 +1,5 @@
 # Algorithms
-The repository contains codes for various algorithms. Each file contains the code an a bit of explanation on each algorithm.
+The repository contains code for various algorithms. Each file contains the code and a bit of explanation on each algorithm.
 
 Algorithms:
 
@@ -7,6 +7,10 @@ Algorithms:
 
 - Depth-first search for the shortest path on a tree
 - Breadth-first search for the shortest path on a tree
+- Floyd-Warshall
+- Bellman-Ford
+- Dijkstra
+- Topological sort
 
 
 ## Sorting algorithms ##
@@ -16,8 +20,9 @@ sort_algorithms.py and quick_sort.py contain codes for:
 - Bubble sort
 - Selection sort
 - Merge sort
-   Quick sort
+- Quick sort
 
+## General
 - Strassen algorithm (matrix multiplication)
 - Binary search
 - FFT
