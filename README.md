@@ -3,22 +3,22 @@ The repository contains codes for various algorithms. Each file contains the cod
 
 Algorithms:
 
-## Search algorithms ##
+## Shortest path ##
 
-1. Depth first search for the shortest path on a tree
-2. Breadth first search for the shortest path on a tree
-3. Binary search
+- Depth-first search for the shortest path on a tree
+- Breadth-first search for the shortest path on a tree
+
 
 ## Sorting algorithms ##
 
-sort_algorithms.py and quick_sort.py contain a codes for:
-1. Inspection sort
-2. Bubble sort
-3. Selection sort
-4. Merge sort
-5. Quick sort
+sort_algorithms.py and quick_sort.py contain codes for:
+- Inspection sort
+- Bubble sort
+- Selection sort
+- Merge sort
+   Quick sort
 
-The file compares thier running times and plots the results.
+- Strassen algorithm (matrix multiplication)
+- Binary search
+- FFT
 
-## Matrix multipication ##
-1. Strassen algorithm
