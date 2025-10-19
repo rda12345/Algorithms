@@ -25,11 +25,10 @@ def fft(x):
     Returns:
         X: np.ndarray: DFT of x     
     """
-    N = len(x)
+    N = len(x)  # array length
     
-    if len(x) ==1: return x
-    elif len(x) == 2:
-        return np.array([x[0]+x[1], x[0]-x[1]])
+    # base case
+    if len(x)==1: return x
 
     
     E = fft(x[::2])  # fft on all even elements of x
@@ -52,6 +51,9 @@ def fftshift(x):
 
     Originally, the frequency bins are ordered as: [0, 1, 2, ..., N/2 - 1, -N/2, ..., -1]
     After the shift, they are reordered to: [-N/2, ..., -1, 0, 1, ..., N/2 - 1]
+    
+    Note that the domain is periodic in N, therefore [-N/2, ..., -1, 0, 1, ..., N/2 - 1]
+    is equivalent to [N/2, ..., -1, 0, 1, ..., N - 1].
     
     Parameters:
         x: np.ndarray, input array
