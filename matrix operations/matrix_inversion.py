@@ -102,7 +102,7 @@ def LU_decomposition(M):
     for k in range(n):
         for i in range(k+1,n):
             A[i,k] = A[i,k]/A[k,k]
-        # compute the Schur comnplement
+        # compute the Schur complement
         for i in range(k+1, n):
             for j in range(k+1, n):
                 A[i,j] = A[i,j] - A[i,k]*A[k,j]
@@ -110,18 +110,45 @@ def LU_decomposition(M):
 
     
 #TODO   
-def LUP_decomposition():
+def LUP_decomposition(M):
     """
     Performs an inplace LU decomposition
     
     Parameters:
-        A: np.ndarray (n,n), non-singular matrix to be decomposed
+        M: np.ndarray (n,n), non-singular matrix to be decomposed
     
     Return:
         L: np.ndarray (n,n), lower diagonal matrix with ones on the diagonal
         U:  np.ndarray (n,n), upper diagonal matrix
     """
-    pass
+    
+    
+    A = np.copy(M)
+    n = len(A)
+    
+    # initialize pi to the identity permutation
+    pi = list(range(n))
+    
+    for k in range(n):
+        p = 0
+        for i in range(k,n):
+            if abs(A[i,k]) > p:
+                p = abs(A[i,k])
+                l = i       # row number of the largest found so far
+        
+        if p == 0:
+            raise Exception("The matrix is singular")
+        pi[k], pi[l] = pi[l], pi[k]
+        
+        # swap row k and l
+        A[[k,l]] = A[[l,k]]
+        
+        for i in range(k+1,n):
+            A[i,k] = A[i,k]/A[k,k]
+            for j in range(k+1, n):
+                A[i,j] = A[i,j] - A[i,k]*A[k,j] # compute the Schur complement
+                
+    return A, pi
 
         
 if __name__ == "__main__":
@@ -133,16 +160,37 @@ if __name__ == "__main__":
     n = len(A)
     b = np.array([3, 7, 8])
     x = LUP_solve(L, U, pi, b, n)  
-    print(f"x: {x}")
-    
+    print(f"LUP_solve: {np.max(x - np.array([-1.4, 2.2, 0.6])) == 0.0}")
     #A1 = np.array([[4,-5,6],[8,-6,7],[12,-7,12]])
     A1 = np.array([[2,3,1,5],[6,13,5,19],[2,19,10,23],[4,10,11,31]])
     L1, U1 = LU_decomposition_out_of_place(A1)
     #print(f"L = {L1}")
     #print(f"U = {U1}")
-    print(f"L*U check: {np.max(L1@U1-A1) == 0.0}")
+    print(f"LU_decomposition: {np.max(L1@U1-A1) == 0.0}")
     
     modified_A= LU_decomposition(A1)
-    print(f"modified A check: {np.max(modified_A - L1 + np.zeros(4) - U1 == 0.0)}")   
+    print(f"LU_decomption: {np.max(modified_A - L1 + np.zeros(4) - U1 == 0.0)}")   
+    A2 = np.array([[2, 0, 2, 0.6],[3, 3, 4, -2],[5, 5, 4, 2],[-1, -2, 3.4, -1]])
+    LUP_A, pi = LUP_decomposition(A2)
     
     
+    # checking LUP_decomposition
+    n = len(LUP_A)
+    L, U = np.eye(n), np.zeros((n,n))
+    
+    for j in range(n-1):
+        for i in range(j+1,n):
+            L[i,j] = LUP_A[i,j]
+    
+    for i in range(n):
+        for j in range(i,n):
+            U[i,j] = LUP_A[i,j]
+            
+    P = np.zeros((n,n))
+    
+    for i in range(n):
+        P[i,pi[i]] = 1
+        
+    res = (np.max(P @ A2 - L @ U) == 0.0)
+    print(f"LUP decomposition check: {res}")
+            
