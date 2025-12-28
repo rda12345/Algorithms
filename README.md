@@ -22,8 +22,14 @@ sort_algorithms.py and quick_sort.py contain codes for:
 - Merge sort
 - Quick sort
 
+## Matrix operations
+- matrix inversion using LU, LUP decompositions
+- solution of linear equations using the matrix inversion functions
+
 ## General
 - Strassen algorithm (matrix multiplication)
 - Binary search
 - FFT
+
+
 
