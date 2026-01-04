@@ -1,5 +1,5 @@
 """
-An implementation of the gradient descent algorithm
+Gradient Descent Algorithm
 
 The algorithm evaluates the gradient of the objective function and performs
 a step in the direction opposite to the gradient.
