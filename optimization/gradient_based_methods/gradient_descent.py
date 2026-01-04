@@ -22,8 +22,12 @@ def gradient(f, x):
     return df_dx(x)
 
 
-def gradient_descent(objective_function, gradient, eta: float, x: np.array)\
-        -> np.array:
+def gradient_descent(
+        objective_function,
+        gradient,
+        eta: float,
+        x: float
+) -> float:
     """
     Evaluates a new search point by gradient descent, aiming to converge to the
     minimum of the objective function.
@@ -31,13 +35,13 @@ def gradient_descent(objective_function, gradient, eta: float, x: np.array)\
     Args:
         objective_function (function): the objective function
         gradient (function): evaluates the gradient of objective function at point x
+        eta (float): the learning rate
         x (np.array): initial search point
 
     Returns:
         (np.array): new search point
     """
-    grad_obj = gradient(objective_function, x)
-    x_new = x - eta * grad_obj
+    x_new = x - eta * gradient(objective_function, x)
     return x_new
 
 
@@ -46,5 +50,8 @@ if __name__ == "__main__":
     for _ in range(100):
         x_new = gradient_descent(f, gradient, eta=0.1, x=x)
         x = x_new
-        print(x_new)
+
+    print(f"Error: {np.abs(x_new-1)*100}%")
+
+
 
