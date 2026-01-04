@@ -43,7 +43,7 @@ def momentum(
         x (np.array): initial search point
 
     Returns:
-        (np.array): new search point
+        float: new search point
     """
     v_new = beta * v + gradient(objective_function, x)
     x_new = x - eta * v_new
