@@ -6,6 +6,11 @@ and may suffer from slow convergence when gradients point in similar directions.
 Momentum fixes these issues by accumulating past gradients.
 It accelerates in consistent directions, smooths out oscillations and escapes
 shallow minima faster.
+
+When f is L-smooth and mu-strongly convex, one can define optimal learning and
+momentum rates:
+eta = 4/(sqrt(L) + sqrt(mu))
+beta = [(sqrt(L) - sqrt(mu)/(sqrt(L) + sqrt(mu)]^2
 """
 
 
