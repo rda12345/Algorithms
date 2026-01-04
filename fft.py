@@ -5,8 +5,8 @@ An implementation of the radix-2 recursive Cooley–Tukey FFT algorithm.
 Assumes the length of the input array is a power of 2.
 Input and output are numpy arrays. 
 
-This is a divde and conquer algorithm, where the recursion relation is based
-on the a seperation to two subrountines on the even and odd indicies, respectively,
+This is a divide and conquer algorithm, where the recursion relation is based
+on a separation to two subroutines on the even and odd indices, respectively,
 and a reuse of the evaluated results. 
 
 Complexity: O(N*log(N))
