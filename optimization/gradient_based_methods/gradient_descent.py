@@ -12,6 +12,7 @@ Lipschitz constant.
 import numpy as np
 import jax.numpy as jnp
 from jax import grad
+import matplotlib.pyplot as plt
 
 def f(x):
     return (x-1)**2
@@ -47,11 +48,19 @@ def gradient_descent(
 
 if __name__ == "__main__":
     x = 0.0
+    vec = [1-x]
     for _ in range(100):
         x_new = gradient_descent(f, gradient, eta=0.1, x=x)
         x = x_new
+        vec.append(np.abs(1 - x))
 
     print(f"Error: {np.abs(x_new-1)*100}%")
+
+    plt.figure()
+    plt.plot(vec)
+    plt.xlabel("Iteration")
+    plt.ylabel("error")
+    plt.show()
 
 
 

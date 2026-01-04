@@ -18,6 +18,7 @@ import numpy as np
 import jax.numpy as jnp
 from jax import grad
 from gradient_descent import gradient
+import matplotlib.pyplot as plt
 
 def f(x):
     return (x-1)**2
@@ -54,11 +55,20 @@ def momentum(
 if __name__ == "__main__":
     x = 0.0
     v = 0.0
+    vec = [1-x]
     for _ in range(100):
         x_new, v_new = momentum(f, gradient, eta=0.1, beta=0.1, x=x, v=v)
         x = x_new
         v = v_new
+        vec.append(np.abs(1-x))
+
 
     print(f"Error: {np.abs(x_new-1)*100}%")
+
+    plt.figure()
+    plt.plot(vec)
+    plt.xlabel("Iteration")
+    plt.ylabel("error")
+    plt.show()
 
 
