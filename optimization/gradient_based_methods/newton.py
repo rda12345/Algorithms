@@ -41,6 +41,8 @@ def newton_method(
     x_new = x - eta * (1/hessian(f,x)) * gradient(f,x)
     return x_new
 
+# TODO: implement newton's method on a function of a vector, where the Hessian is a matrix
+
 if __name__ == "__main__":
     x = 0.0
     vec = [1-x]
