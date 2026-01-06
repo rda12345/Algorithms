@@ -30,9 +30,9 @@ def momentum(
         gradient,
         eta: float,
         beta: float,
-        x: float,
-        v: float
-) -> float:
+        x: np.array,
+        v: np.array
+) -> np.array:
     """
     Evaluates a new search point by momentum algorithm aiming to converge to the
     minimum of the objective function.
@@ -58,9 +58,9 @@ def NAG(
         gradient,
         eta: float,
         beta: float,
-        x: float,
-        v: float
-) -> float:
+        x: np.array,
+        v: np.array
+) -> np.array:
     """
     Nestrov accelerated gradient (NAG)
     Modifies the standard update rule by calculating the gradient
@@ -79,37 +79,41 @@ def adagrad(
         gradient,
         eta: float,
 ) -> float:
+    pass
 
 # TODO: code RMSprop
 def RMSprop(
         objective_function,
 ) -> float:
+    pass
 
 
 
 
 
 if __name__ == "__main__":
-    vec = [1]
-    vecNAG = vec.copy()
 
     # momentum
-    x, v = 0.0, 0.0
+    x, v = np.array([0.0, 2.0]), np.array([1.0, 1.0 ])
+    vec = [np.linalg.norm(1 - x)]
+    vecNAG = vec.copy()
     for _ in range(100):
         x_new, v_new = momentum(f, gradient, eta=0.1, beta=0.1, x=x, v=v)
         x = x_new
         v = v_new
-        vec.append(np.abs(1-x))
+        vec.append(np.linalg.norm(1-x))
 
-    print(f"Error: {np.abs(x_new - 1) * 100}%")
+    print(f"Error: {np.linalg.norm(x_new - 1) * 100}%")
 
     # Nestrov
-    x, v = 0.0, 0.0
+    x, v = np.array([0.0, 2.0]), np.array([1.0, 1.0 ])
+    vec = [np.linalg.norm(1 - x)]
+    vecNAG = vec.copy()
     for _ in range(100):
         x_new, v_new = NAG(f, gradient, eta=0.1, beta=0.1, x=x, v=v)
         x = x_new
         v = v_new
-        vecNAG.append(np.abs(1-x))
+        vecNAG.append(np.linalg.norm(1-x))
 
 
     plt.figure()

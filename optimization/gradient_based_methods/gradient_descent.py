@@ -15,12 +15,26 @@ from jax import grad
 import matplotlib.pyplot as plt
 
 def f(x):
+    """
+    Objective function
+    """
     return (x-1)**2
 
 
-def gradient(f, x):
-    df_dx = grad(f)
-    return df_dx(x)
+
+def gradient(f,
+              x: np.array,
+) -> np.array:
+    """
+    Evaluates the gradient of f with respect the elements of x.
+    Args:
+        f (function): the objective function
+        x (np.array): initial search point
+
+    Returns:
+        np.array: new search point
+    """
+    return np.array([grad(f)(x[i]) for i in range(len(x))])
 
 
 def gradient_descent(
@@ -40,20 +54,20 @@ def gradient_descent(
         x (np.array): initial search point
 
     Returns:
-        (np.array): new search point
+        np.array: new search point
     """
-    x_new = x - eta * gradient(objective_function, x)
-    return x_new
+    return x - eta * gradient(objective_function, x)
 
 
 if __name__ == "__main__":
-    x = 0.0
-    vec = [1-x]
+    x = np.array([0.0, 2.0])
+    vec = [np.linalg.norm([1-x])]
     for _ in range(100):
         x_new = gradient_descent(f, gradient, eta=0.1, x=x)
         x = x_new
-        vec.append(np.abs(1 - x))
 
+        vec.append(np.linalg.norm(1 - x))
+    print(vec)
     print(f"Error: {np.abs(x_new-1)*100}%")
 
     plt.figure()
@@ -61,6 +75,5 @@ if __name__ == "__main__":
     plt.xlabel("Iteration")
     plt.ylabel("error")
     plt.show()
-
 
 
