@@ -20,6 +20,7 @@ import jax.numpy as jnp
 from jax import grad
 from gradient_descent import gradient
 import matplotlib.pyplot as plt
+import random
 
 def f(x):
     return (x-1)**2
@@ -46,7 +47,7 @@ def momentum(
         x (np.array): initial search point
 
     Returns:
-        float: new search point
+        np.ndarray: new search point
     """
     v_new = beta * v + (1 - beta) * gradient(objective_function, x)
     x_new = x - eta * v_new
@@ -73,30 +74,89 @@ def NAG(
 
     return x_new, v_new
 
-# TODO: code adagrad
+
 def adagrad(
         objective_function,
         gradient,
+        G: float,
         eta: float,
+        eps: float,
+        x: np.array,
 ) -> float:
-    pass
+    """
+    Adagrad optimization algorithm. Adjusts the learning
+    rate of each parameter during the learning process.
+
+    Args:
+        objective_function (function): the objective function
+        gradient (function): evaluates the gradient of objective function at point x
+        G (float): sum of squared gradients
+        eta (float): global learning rate
+        eps (float): small value added to avoid divergence of the learning rate
+        x (np.array): search point
+
+    Returns:
+        np.ndarray: new search point
+    """
+    if np.linalg.norm(G) < eps:
+        learning_rate = eta
+    else:
+        learning_rate = eta / np.sqrt(G + eps)
+    g = gradient(objective_function, x)
+    x_new = x - learning_rate * g
+    G += g**2
+    return x_new, G
+
+
 
 # TODO: code RMSprop
 def RMSprop(
         objective_function,
+        gradient,
+        G: float,
+        eta: float,
+        eps: float,
+        beta: float,
+        x: np.array,
 ) -> float:
-    pass
+    """
+    RMSprop optimization algorithm. Adjusts the learning rate
+    of each parameter during the learning process using a moving
+    average of the squared gradients.
+
+    Args:
+        objective_function (function): the objective function
+        gradient (function): evaluates the gradient of objective function at point x
+        G (float): moving average of squared gradients
+        eta (float): global learning rate
+        eps (float): small value added to avoid divergence of the learning rate
+        beta (float): controls the memory of the moving average
+        x (np.array): search point
 
 
-
+    Returns:
+        np.ndarray: new search point
+    """
+    if np.linalg.norm(G) < eps:
+        learning_rate = eta
+    else:
+        learning_rate = eta / np.sqrt(G + eps)
+    g = gradient(objective_function, x)
+    x_new = x - learning_rate * g
+    G = beta * G + (1 - beta) * g**2
+    return x_new, G
 
 
 if __name__ == "__main__":
 
-    # momentum
+
     x, v = np.array([0.0, 2.0]), np.array([1.0, 1.0 ])
     vec = [np.linalg.norm(1 - x)]
     vecNAG = vec.copy()
+    vecAdagrad = vec.copy()
+    vecRMSprop = vec.copy()
+
+    # momentum
     for _ in range(100):
         x_new, v_new = momentum(f, gradient, eta=0.1, beta=0.1, x=x, v=v)
         x = x_new
@@ -107,21 +167,45 @@ if __name__ == "__main__":
 
     # Nestrov
     x, v = np.array([0.0, 2.0]), np.array([1.0, 1.0 ])
-    vec = [np.linalg.norm(1 - x)]
-    vecNAG = vec.copy()
     for _ in range(100):
         x_new, v_new = NAG(f, gradient, eta=0.1, beta=0.1, x=x, v=v)
         x = x_new
         v = v_new
         vecNAG.append(np.linalg.norm(1-x))
 
+    # Adagrad
+    x = np.array([0.0, 2.0])
+    G = 0
+    eta = 0.1
+    eps = 1e-8
+    for _ in range(100):
+        x_new, G_new = adagrad(f, gradient, G, eta, eps, x)
+        x = x_new
+        G = G_new
+        vecAdagrad.append(np.linalg.norm(1-x))
 
+
+    # RMSprop
+    x= np.array([0.0, 2.0])
+    G = 0
+    eta = 0.1
+    beta = 0.9
+    eps = 1e-8
+    for _ in range(100):
+        x_new, G_new = RMSprop(f, gradient, G, eta, eps, beta, x)
+        x = x_new
+        G = G_new
+        vecRMSprop.append(np.linalg.norm(1-x))
+
+    # Plot results
     plt.figure()
     plt.plot(vec)
     plt.plot(vecNAG)
+    plt.plot(vecAdagrad)
+    plt.plot(vecRMSprop)
     plt.xlabel("Iteration")
-    plt.ylabel("error")
-    plt.legend(["momentum","Nestrov"])
+    plt.ylabel("Error")
+    plt.legend(["momentum","Nestrov","Adagrad","RMSprop"])
     plt.show()
 
 
