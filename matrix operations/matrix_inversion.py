@@ -108,8 +108,7 @@ def LU_decomposition(M):
                 A[i,j] = A[i,j] - A[i,k]*A[k,j]
     return A
 
-    
-#TODO   
+
 def LUP_decomposition(M):
     """
     Performs an inplace LU decomposition
