@@ -22,8 +22,11 @@ from gradient_descent import gradient
 import matplotlib.pyplot as plt
 import random
 
-def f(x):
-    return (x-1)**2
+def f(x: np.array) -> float:
+    """
+    Objective function
+    """
+    return 0.5 * jnp.dot(x, x)
 
 
 def momentum(
@@ -149,9 +152,8 @@ def RMSprop(
 
 if __name__ == "__main__":
 
-
     x, v = np.array([0.0, 2.0]), np.array([1.0, 1.0 ])
-    vec = [np.linalg.norm(1 - x)]
+    vec = [np.linalg.norm(x)]
     vecNAG = vec.copy()
     vecAdagrad = vec.copy()
     vecRMSprop = vec.copy()
@@ -161,9 +163,9 @@ if __name__ == "__main__":
         x_new, v_new = momentum(f, gradient, eta=0.1, beta=0.1, x=x, v=v)
         x = x_new
         v = v_new
-        vec.append(np.linalg.norm(1-x))
+        vec.append(np.linalg.norm(x))
 
-    print(f"Error: {np.linalg.norm(x_new - 1) * 100}%")
+    print(f"Error: {np.linalg.norm(x_new) * 100}%")
 
     # Nestrov
     x, v = np.array([0.0, 2.0]), np.array([1.0, 1.0 ])
@@ -171,7 +173,7 @@ if __name__ == "__main__":
         x_new, v_new = NAG(f, gradient, eta=0.1, beta=0.1, x=x, v=v)
         x = x_new
         v = v_new
-        vecNAG.append(np.linalg.norm(1-x))
+        vecNAG.append(np.linalg.norm(x))
 
     # Adagrad
     x = np.array([0.0, 2.0])
@@ -182,7 +184,7 @@ if __name__ == "__main__":
         x_new, G_new = adagrad(f, gradient, G, eta, eps, x)
         x = x_new
         G = G_new
-        vecAdagrad.append(np.linalg.norm(1-x))
+        vecAdagrad.append(np.linalg.norm(x))
 
 
     # RMSprop
@@ -195,7 +197,7 @@ if __name__ == "__main__":
         x_new, G_new = RMSprop(f, gradient, G, eta, eps, beta, x)
         x = x_new
         G = G_new
-        vecRMSprop.append(np.linalg.norm(1-x))
+        vecRMSprop.append(np.linalg.norm(x))
 
     # Plot results
     plt.figure()

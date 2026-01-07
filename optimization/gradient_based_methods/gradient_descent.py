@@ -14,11 +14,12 @@ import jax.numpy as jnp
 from jax import grad
 import matplotlib.pyplot as plt
 
-def f(x):
+def f(x: np.array) -> float:
     """
     Objective function
     """
-    return (x-1)**2
+    return 0.5 * jnp.dot(x, x)
+
 
 
 
@@ -34,7 +35,7 @@ def gradient(f,
     Returns:
         np.array: new search point
     """
-    return np.array([grad(f)(x[i]) for i in range(len(x))])
+    return grad(f)(x)
 
 
 def gradient_descent(
@@ -60,15 +61,14 @@ def gradient_descent(
 
 
 if __name__ == "__main__":
-    x = np.array([0.0, 2.0])
-    vec = [np.linalg.norm([1-x])]
+    x = np.array([3.0, 2.0])
+    vec = [np.linalg.norm([x])]
     for _ in range(100):
         x_new = gradient_descent(f, gradient, eta=0.1, x=x)
         x = x_new
+        vec.append(np.linalg.norm(x))
 
-        vec.append(np.linalg.norm(1 - x))
-    print(vec)
-    print(f"Error: {np.abs(x_new-1)*100}%")
+    print(f"Error: {np.linalg.norm(x_new)*100}%")
 
     plt.figure()
     plt.plot(vec)
