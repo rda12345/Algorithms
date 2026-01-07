@@ -31,7 +31,7 @@ sort_algorithms.py and quick_sort.py contain codes for:
 ### Gradient-based methods
 
 - Gradient descent
-- Momentum
+- Momentum methods: standard momenum, Nestrov, Adagrad, RMSprop
 - Adam
 - Newton's method
 
