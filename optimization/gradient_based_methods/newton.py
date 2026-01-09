@@ -3,6 +3,9 @@ Newton's method
 
 The method utilizes the gradient and the Hessian of the
 objective function in the optimization process.
+
+Complexity: evaluation of the inverse of the Hessian scales as O(n^3)
+            at each iteration.
 """
 import numpy as np
 import jax.numpy as jnp
@@ -44,7 +47,6 @@ def newton_method(
     """
     history = []
     for _ in range(max_iter):
-        hessian_f = hessian(f, x)
         x_new = x - eta * np.linalg.inv(hessian(f,x)) @ gradient(f,x)
         history.append(x_new)
         if np.linalg.norm(x_new - x) < threshold:
