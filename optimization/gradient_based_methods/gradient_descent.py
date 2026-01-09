@@ -24,7 +24,7 @@ def f(x: np.array) -> float:
 
 
 def gradient(f,
-              x: np.array,
+             x: np.array
 ) -> np.array:
     """
     Evaluates the gradient of f with respect the elements of x.
@@ -42,7 +42,9 @@ def gradient_descent(
         objective_function,
         gradient,
         eta: float,
-        x: float
+        x: float,
+        max_iter: int = 100,
+        threshold: float = 1e-6
 ) -> float:
     """
     Evaluates a new search point by gradient descent, aiming to converge to the
@@ -53,25 +55,32 @@ def gradient_descent(
         gradient (function): evaluates the gradient of objective function at point x
         eta (float): the learning rate
         x (np.array): initial search point
+        max_iter (int): maximum number of iterations
+        threshold (float): convergence threshold
 
     Returns:
         np.array: new search point
+
+
     """
-    return x - eta * gradient(objective_function, x)
+    history = [x]
+    for _ in range(max_iter):
+        x = x - eta * gradient(objective_function, x)
+        history.append(x)
+        if np.linalg.norm(x) < threshold:
+            return x, history
+
+    return x, history
 
 
 if __name__ == "__main__":
     x = np.array([3.0, 2.0])
-    vec = [np.linalg.norm([x])]
-    for _ in range(100):
-        x_new = gradient_descent(f, gradient, eta=0.1, x=x)
-        x = x_new
-        vec.append(np.linalg.norm(x))
-
-    print(f"Error: {np.linalg.norm(x_new)*100}%")
-
+    x_opt, history = gradient_descent(f, gradient, eta=0.1, x=x
+                                      )
+    print(f"Error: {np.linalg.norm(x_opt)*100}%")
+    error = [np.linalg.norm(x) for x in history]
     plt.figure()
-    plt.plot(vec)
+    plt.plot(error)
     plt.xlabel("Iteration")
     plt.ylabel("error")
     plt.show()
