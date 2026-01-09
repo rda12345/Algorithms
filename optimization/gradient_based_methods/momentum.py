@@ -190,8 +190,7 @@ def RMSprop(
 
 
 if __name__ == "__main__":
-
-    x, v = np.array([0.0, 2.0]), np.array([1.0, 1.0 ])
+    x, v = np.array([0.0, 2.0]), np.array([0.0, 0.0 ])
     vec = [np.linalg.norm(x)]
     vecNAG = vec.copy()
     vecAdagrad = vec.copy()
@@ -201,15 +200,12 @@ if __name__ == "__main__":
 
     x_opt, history = momentum(f, gradient, eta=0.1, beta=0.1, x=x, v=v)
     error_momentum = [np.linalg.norm(x) for x in history]
-    print(f"Error: {np.linalg.norm(x_opt) * 100}%")
 
     # Nestrov
-    x, v = np.array([0.0, 2.0]), np.array([1.0, 1.0 ])
     x_opt, history= NAG(f, gradient, eta=0.1, beta=0.1, x=x, v=v)
     error_NAG = [np.linalg.norm(x) for x in history]
 
     # Adagrad
-    x = np.array([0.0, 2.0])
     G = 0
     eta = 0.1
     eps = 1e-8
@@ -218,11 +214,7 @@ if __name__ == "__main__":
 
 
     # RMSprop
-    x= np.array([0.0, 2.0])
-    G = 0
-    eta = 0.1
     beta = 0.9
-    eps = 1e-8
     x_opt, history = RMSprop(f, gradient, G, eta, eps, beta, x)
     error_RMSprop = [np.linalg.norm(x) for x in history]
 
@@ -234,7 +226,7 @@ if __name__ == "__main__":
     plt.plot(error_RMSprop)
     plt.xlabel("Iteration")
     plt.ylabel("Error")
-    plt.legend(["momentum","Nestrov","Adagrad","RMSprop"])
+    plt.legend(["Momentum","Nestrov","Adagrad","RMSprop"])
     plt.show()
 
 
