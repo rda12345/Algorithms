@@ -23,7 +23,9 @@ def newton_method(
         objective_function,
         gradient,
         x: float,
-        eta: float
+        eta: float,
+        max_iter: int = 100,
+        threshold: float = 1e-6
 ) -> float:
     """
     Newton's method
@@ -34,29 +36,31 @@ def newton_method(
     Args:
         x (float): initial search point
         eta (float): learning rate
+        max_iter (int): maximum number of iterations
+        threshold (float): convergence threshold
 
     Returns:
         float: optimal value
     """
-    hessian_f = hessian(f, x)
+    history = []
+    for _ in range(max_iter):
+        hessian_f = hessian(f, x)
+        x_new = x - eta * np.linalg.inv(hessian(f,x)) @ gradient(f,x)
+        history.append(x_new)
+        if np.linalg.norm(x_new - x) < threshold:
+            return x_new, history
+        x = x_new
+    return x_new, history
 
-    x_new = x - eta * np.linalg.inv(hessian(f,x)) @ gradient(f,x)
-    return x_new
-
-# TODO: implement newton's method on a function of a vector, where the Hessian is a matrix
 
 if __name__ == "__main__":
     x = np.array([2.0, 3.0])
-    vec = [np.linalg.norm(x)]
-    for _ in range(100):
-        x_new = newton_method(f, gradient, eta=0.1, x=x)
-        x = x_new
-        vec.append(np.linalg.norm(x))
-
-    print(f"Error: {np.linalg.norm(x_new)*100}%")
+    x_opt, history = newton_method(f, gradient, eta=0.1, x=x)
+    error = [np.linalg.norm(x - x_opt) for x in history]
+    print(f"Error: {np.linalg.norm(x_opt)*100}%")
 
     plt.figure()
-    plt.plot(vec)
+    plt.plot(error)
     plt.xlabel("Iteration")
     plt.ylabel("error")
     plt.show()
