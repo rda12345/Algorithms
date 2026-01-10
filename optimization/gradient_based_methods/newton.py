@@ -4,8 +4,12 @@ Newton's method
 The method utilizes the gradient and the Hessian of the
 objective function in the optimization process.
 
-Complexity: evaluation of the inverse of the Hessian scales as O(n^3)
-            at each iteration.
+Complexity: Evaluation of the inverse of the Hessian scales (naively) as O(n^3)
+            at each iteration using the LU or LUP decompositions to invert the
+            Hessian. However, asymptotically, evaluating the inverse of a matrix
+            scales as matrix multiplication, so the n^3 can be improved by
+            applying the divide and conquer algorithm such as Strassen algorithm.
+            So the asymptotic complexity is approximately O(n^{2.37}).
 """
 import numpy as np
 import jax.numpy as jnp
