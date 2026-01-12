@@ -64,6 +64,14 @@ def fftshift(x):
     N = len(x)
     return np.concatenate((x[N//2:],x[:N//2]))
 
+#TODO: complete
+def iterative_fft(x):
+    pass
+
+#TODO: complete
+def bit_reverse_copy(x, X):
+    pass
+
 
 ## Test
 import matplotlib.pyplot as plt
