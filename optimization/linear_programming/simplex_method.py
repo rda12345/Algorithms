@@ -84,7 +84,6 @@ def pivot(
     for j in N:
         if j != e:
             A_new[e,j] = A[l,j] / A[l,e]
-            print(A[l,e])
     A_new[e,l] = 1 / A[l,e]  # l is in B not in N so it is not included in the sum
 
     # Compute the coefficients of the remaining constraints
@@ -116,6 +115,14 @@ def initialize_simplex(
         b: np.ndarray,
         c: np.ndarray,
 ) -> tuple:
+    """
+    Initializes the simplex method.
+    Checks if the program is infeasible, if so it terminates, if not returns a
+    slack form for which the initial basic solution is feasible.
+
+
+
+    """
     n = len(A)
     m = len(nonzero(b)[0])
     N = {i for i in range(n-m)}
@@ -134,8 +141,8 @@ def simplex(
     Simplex Method
 
     Solves a Linear Program in slack form.
-    The choice of entering variables randomized, as well as the leaving
-    variable when there is a degeneracy.
+    Chooses the entering and leaving variables deterministically, according
+    to a maximum/minimum rule.
 
     Args:
         A (np.ndarray): coefficients of the constraints.
@@ -147,14 +154,12 @@ def simplex(
                         and optimal (maximal) value.
     """
     N, B, A, b, c, nu = initialize_simplex(A, b, c)
-    print(f'N: {N}, B: {B}, A: {A}, b: {b}, c: {c}')
     n = len(b)
     Delta = np.zeros(n)
     # from j in N choose j, such that c_j > 0
     while np.any(c[list(N)] > 0):
-        positive_indices = np.where(c > 0)[0]
-        # choose one of the indices randomly
-        e = np.random.choice(positive_indices)
+        # choose the maximum coefficient in the
+        e = np.argmax(c)
         for i in B:
             if A[i,e] > 0:
                 Delta[i] = b[i] / A[i,e]
