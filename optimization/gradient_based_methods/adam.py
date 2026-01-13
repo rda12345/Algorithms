@@ -10,8 +10,6 @@ while RMSprop is an adaptive learning rate method, using weighted moving average
 of squared gradients, which help overcome diminishing learning rates.
 
 """
-# TODO: Complete the file and test
-
 import numpy as np
 import jax.numpy as jnp
 from jax import grad
