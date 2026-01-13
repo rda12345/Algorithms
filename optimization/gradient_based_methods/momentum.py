@@ -141,7 +141,6 @@ def adagrad(
 
 
 
-# TODO: code RMSprop
 def RMSprop(
         objective_function,
         gradient,
