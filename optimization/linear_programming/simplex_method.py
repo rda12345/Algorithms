@@ -110,6 +110,7 @@ def pivot(
 
     return N_new, B_new, A_new, b_new, c_new, nu_new
 
+#TODO: code the initialize_simplex properly
 def initialize_simplex(
         A: np.ndarray,
         b: np.ndarray,
@@ -123,7 +124,7 @@ def initialize_simplex(
     return N, B, A, b, c, nu
 
 
-# TODO: fix bug in the code
+
 def simplex(
         A: np.ndarray,
         b: np.ndarray,
@@ -152,15 +153,15 @@ def simplex(
     # from j in N choose j, such that c_j > 0
     while np.any(c[list(N)] > 0):
         positive_indices = np.where(c > 0)[0]
-        # Choose one of the indicies randomly
+        # choose one of the indices randomly
         e = np.random.choice(positive_indices)
         for i in B:
             if A[i,e] > 0:
-                Delta[e] = b[i] / A[i,e]
+                Delta[i] = b[i] / A[i,e]
             else:
                 Delta[e] = inf
-        minimum_indices = np.where(Delta == np.min(Delta))[0]
-        l = np.random.choice(minimum_indices)
+        nonzero_indices = np.where(Delta > np.min(Delta))[0]
+        l = nonzero_indices[np.argmin(Delta[nonzero_indices])]   # choosing the index for which Delta > 0 and minimum.
         if Delta[l] == inf:
             return 'unbounded'
         else:
@@ -195,6 +196,6 @@ if __name__ == "__main__":
 
     # Simplex test
     solution, optimal_value = simplex(A, b, c)
-
-    print(f'Optimal solution: {solution}')
-    print(f'Optimal value: {optimal_value}')
+    print("#------------- TESTS -------------")
+    print(f'Optimal solution: {list(solution) == [8. , 4., 0. , 18., 0., 0.]}')
+    print(f'Optimal value: {optimal_value == 28.0}')
