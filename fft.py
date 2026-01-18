@@ -85,7 +85,7 @@ def fftshift(x):
     N = len(x)
     return np.concatenate((x[N//2:],x[:N//2]))
 
-# TODO: fix the bug in iterative_fft
+
 def iterative_fft(x):
     A = bit_reverse_copy(x)  # A is a numpy array of length n in bit-reversed permutation order
     n = len(x)      # n is a power of 2
