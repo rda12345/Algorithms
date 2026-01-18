@@ -12,7 +12,7 @@ The repository contains code, explanations and complexity analysis, of algorithm
 - Karatsuba
 - Modular exponentiation
 - Modular linear equation solver
-- primality: pseudo prime, Miller-Rabin, witness
+- Primality: pseudo prime, Miller-Rabin, witness
 
 ## Optimization ##
 
