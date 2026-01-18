@@ -2,6 +2,31 @@
 The repository contains code for various algorithms. Each file contains the code and a bit of explanation on each algorithm.
 
 
+## Matrix operations  ##
+
+- Matrix inversion using LU, LUP decompositions
+- Solution of linear equations using the matrix inversion functions
+- Strassen algorithm (matrix multiplication)
+
+## Number theoretic
+- Euclid and extended Euclid
+- Karatsuba
+- Modular exponentiation
+- Modular linear equation solver
+- primality: pseudo prime, Miller-Rabin, witness
+
+## Optimization ##
+
+### Gradient-based methods
+
+- Gradient descent
+- Momentum methods: standard momenum, Nestrov, Adagrad, RMSprop
+- Adam
+- Newton's method
+
+### Linear programming
+- Simplex method
+
 ## Shortest path ##
 
 - Depth-first search for the shortest path on a tree
@@ -14,32 +39,16 @@ The repository contains code for various algorithms. Each file contains the code
 
 ## Sorting algorithms ##
 
-sort_algorithms.py and quick_sort.py contain codes for:
-- Inspection sort
 - Bubble sort
-- Selection sort
+- Insertion sort
 - Merge sort
 - Quick sort
-
-## Matrix operations  ##
-- Matrix inversion using LU, LUP decompositions
-- Solution of linear equations using the matrix inversion functions
-- Strassen algorithm (matrix multiplication)
-
-## Optimization ##
-
-### Gradient-based methods
-
-- Gradient descent
-- Momentum methods: standard momenum, Nestrov, Adagrad, RMSprop
-- Adam
-- Newton's method
-
+- Selection sort
 
 
 ## General  ##
 - Binary search
-- FFT
+- FFT: recursive and iterative implementations
 
 
 
