@@ -1,6 +1,5 @@
 # Algorithms
-The repository contains code for various algorithms. Each file contains the code and a bit of explanation on each algorithm.
-
+The repository contains code, explanations and complexity analysis, of algorithms. 
 
 ## Matrix operations  ##
 
