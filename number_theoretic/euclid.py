@@ -1,7 +1,6 @@
 """
 Euclid's and Extended Euclid's algorithms
 
-
 Both algorithms compute the greatest common divisor (gcd) between two non-negative integers,
 utilizing the identity gcd(a,b) = gcd(b, a mod(b))
 Extended Euclid's algorithm also returns the non-negative integer coefficients x, y, such that
