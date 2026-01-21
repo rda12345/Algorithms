@@ -33,8 +33,8 @@ def gcd(a,b):
         b (int): non-negative integer
 
     Returns:
-        tuple[int]: greatest common divisor of a and b, and non-negative x, y, satisfying
-                    gcd(a,b) = a*x + b*y.
+        tuple[int]: greatest common divisor of a and b, and (possibly negative) x, y,
+                    integers, satisfying gcd(a,b) = a*x + b*y.
     """
     if b == 0:
         return (a,1,0)
@@ -44,9 +44,22 @@ def gcd(a,b):
 
 if __name__ == "__main__":
     print('----------- TESTS -----------')
+    print('Euclid\'s algorithm')
     print(f'Primes: {euclid(2,5) == 1}')
     print(f'b=0: {euclid(3,0) == 3}')
     print(f'a=0: {euclid(0, 10) == 10}')
     print(f'Composite numbers: {euclid(30, 24) == 6}')
+
+    print('Extended Euclid\'s algorithm')
+    g, x, y = gcd(a=11, b=9)
+    print(f'Primes: {g == 1 &  11*x + 9*y == 1}')
+    g, x, y = gcd(a=10, b=0)
+    print(f'b=0: {g == 10 & 10*x == 10}')
+    g, x, y = gcd(a=0, b=10)
+    print(f'a=0: {g == 10 & 10 * y == 10}')
+    g, x, y = gcd(a=30, b=24)
+    print(f'Composite numbers=0: {g == 6 & 30 * x + 24 * y == 6}')
+
+
 
 
