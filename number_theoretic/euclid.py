@@ -3,8 +3,8 @@ Euclid's and Extended Euclid's algorithms
 
 Both algorithms compute the greatest common divisor (gcd) between two non-negative integers,
 utilizing the identity gcd(a,b) = gcd(b, a mod(b))
-Extended Euclid's algorithm also returns the non-negative integer coefficients x, y, such that
-gcd(a,b) = a*x + b*y.
+Extended Euclid's algorithm also returns the (possibly negative) integer
+coefficients x, y, such that gcd(a,b) = a*x + b*y.
 
 Complexity: O(lg(b)). The overall runtime is proportional to the number of recursive calls.
             Utilizing Lame theorem, which states that for an integer k>=1, if a>1 and b>=1, and
