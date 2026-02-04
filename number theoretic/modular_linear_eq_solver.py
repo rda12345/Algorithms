@@ -4,6 +4,9 @@ Modular Linear Equation Solver
 If there exist a solution, 0 <= x <= n-1,  to the equation a*x = b mod n, the algorithm
 returns a list of d = gcd(a,n) solutions.
 There exist a solution iff d|b (d divides b).
+
+Complexity: The extended Euclid's algorithm performs O(log(n)) arithmetic operations,
+            therefore, the algorithm running time is O(log(n)).
 """
 from euclid import gcd
 
