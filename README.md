@@ -1,6 +1,11 @@
 # Algorithms
 The repository contains code, explanations and complexity analysis, of algorithms. 
 
+
+## Machine learning ##
+- k-mean clustering
+- Multiplicative weights: weighted majority 
+
 ## Matrix operations  ##
 
 - Matrix inversion using LU, LUP decompositions
