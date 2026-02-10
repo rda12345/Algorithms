@@ -14,7 +14,18 @@ We present two algorithms:
     is base-2 pseudo-prime, that is, does it satisfy 2^{n-1} = 1 mod n.
     Composite numbers satisfying this condition are quite rare  (e.g, Carmichael's numbers).
 
-2. Miller-Rabin primality test - Iterative procedure
+2. Miller-Rabin primality test - Iterative probabilistic procedure, where a random integer 1 < a < n-1,
+    is chosen s times, and checked whether it is a "witness" for the compositability of n. A witness
+    verifies that n is composite.
+    The error of Miller-Rabin primality test is bounded from above by 1/2^s. This results, stems from a theorem
+    showing that the number of non-witnesses is at most (n-1)/2. However, for large primes we need to take
+    into account the distribution of primes.
+    For a large number <n be prime is Pr(A) = 1/ln(n).
+    The probability of Miller-Rabin to report that a number is prime: P(B), therefore the probability
+    that the chosen number is really prime is P(A|B) \approx 1/(1 +2^{-s}*(ln(n)-1)). Therefore s should
+    be > lg(ln(n)-1), for the probability to be greater than half.
+
+
 """
 from modular_exponentiation import modular_exponentiation_iterative
 import random

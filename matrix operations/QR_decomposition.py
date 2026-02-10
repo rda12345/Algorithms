@@ -20,6 +20,10 @@ Two algorithms are presented:
     Q = G^T.
     The Given rotations method is numerically stable (orthogonal transformations),
     good for sparse matrices and since each rotation is local it is parallelizable.
+
+
+Complexity:
+    The complexity of both the Gram-Schmidt and Given rotations method is O(m*n^2).
 """
 import numpy as np
 
@@ -54,10 +58,10 @@ def QR_given(A: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
     Args:
         A (np.ndarray): A matrix of size m x n (with m >= n)
     """
-    m = A.shape[0]
+    m, n = A.shape[0], A.shape[1]
     G_product = np.eye(m)
-    for k in range(A.shape[1]-1):
-        for l in range(A.shape[0]-1, k, -1):
+    for k in range(n-1):
+        for l in range(m-1, k, -1):
             a, b = A[l-1, k], A[l, k]
             G = given_rotation(l-1, l, a, b, m)
             G_product = G @ G_product
@@ -81,8 +85,6 @@ def QR_gram_schmidt(A):
     for k in range(1, n):
         s = 0
         for j in range(k):
-            #print(f's: {s}, j: {j}, k: {k}')
-
             s += np.dot(Q[:,j], A[:, k]) * Q[:,j]
         V[:, k] = A[:, k] - s
         Q[:, k] = V[:, k] / np.linalg.norm(V[:, k])
