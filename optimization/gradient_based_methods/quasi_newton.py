@@ -53,9 +53,9 @@ from jax import grad
 import matplotlib.pyplot as plt
 from gradient_descent import gradient
 
+# TODO: insert a line search
 
-
-def f(x: np.array) -> float:
+def f(x: np.ndarray) -> float:
     """
     Objective function
     """
@@ -73,32 +73,6 @@ def BFGS_inv_hessian(
     """
     return (np.eye(len(s)) - rho * np.outer(s, y)) @ H @ (np.eye(len(s)) - rho * np.outer(y, s)) + rho * np.outer(s, s)
 
-def LBFGS_gradient_direction(
-        storage: list[tuple[np.ndarray, np.ndarray, float]],
-        g: np.ndarray,
-        m: int = 10,
-) -> np.ndarray:
-    q = g
-    alpha_list = []
-    for i in reversed(range(m)):
-        s, y, rho = storage[i]
-        alpha_i =  rho * np.outer(s, y)
-        alpha_list.append(alpha_i)
-        q -= alpha_i @ y
-
-    alpha_list = reversed(alpha_list)
-
-    s, y, _ = storage[m]
-    gamma = np.outer(s, y) / np.dot(y, y)
-    H0 = gamma * np.eye(len(s))
-    r = H0 @ q
-
-    for i in range(m):
-        s, y, rho = storage[i]
-        beta = rho * np.outer(y, r)
-        r += (a[i] - beta) * s
-
-    return r
 
 
 
@@ -152,13 +126,12 @@ def BFGS(
     return x_new, history
 
 
-# TODO: code LBFGS
 
 def LBFGS(
         objective_function,
         gradient: np.ndarray,
         x: np.ndarray,
-        m:int = 10,
+        m: int = 10,
         eta: float = 0.1,
         max_iter: int = 100,
         threshold: float = 1e-6
@@ -182,38 +155,66 @@ def LBFGS(
     Returns:
         float: optimal value
     """
-    history = []
-    storage = []
-    q = queue.PriorityQueue()
-    H = np.eye(len(x))  # initialization of the approximation of the inverse Hessian
-    g = gradient(objective_function, x)
-    p = H @ g
-    for _ in range(max_iter):
+    S = []
+    Y = []
+    R = []
+    history = []    # not really, needed just used to keep track of the convergence behaviour
 
-        x_new = x - eta * p
+    for i in range(max_iter):
+        g = gradient(objective_function, x)
+        if len(S) == 0:
+            p = -g
+        else:
+            p = descent_direction(g, S, Y, R)
+
+        x_new = x + eta * p
         history.append(x_new)
 
         s = x_new - x
         y = gradient(objective_function, x_new) - g
-        ys = np.dot(y, s)
-        rho = 1.0 / ys
 
+        ys = np.dot(y, s)
+        # convergence check
         if np.linalg.norm(x_new - x) < threshold or ys <= 1e-10:
             return x_new, history
+        rho = 1.0 / ys
+
+        # store s and y
+        S.append(s)
+        Y.append(y)
+        R.append(rho)
+
+
+
+        p = descent_direction(g, S, Y, R)
+
+        # maintaining the length of the lists
+        if len(S) > m:
+            S.pop(0)
+            Y.pop(0)
+            R.pop(0)
+
         x = x_new
-
-        # updating the queue
-        if len(q) < m:
-            q.push((s, y, rho))
-        else:
-            q.pop()
-            q.push((s, y, rho))
-
-        # evaluating the gradient direction
-        p = LBFGS_search_direction(storage=q.tolist(), g=g, m=m)
-
-
+        history.append(x)
     return x_new, history
+
+
+def descent_direction(g: np.ndarray, S: list, Y: list, R: list) :
+    q = g
+    n = g.shape[0]
+    l = len(S)
+    alpha = np.zeros(l).astype(float)
+    beta = np.zeros(l).astype(float)
+    for i in reversed(range(len(S))):
+        alpha[i] = (R[i]*np.dot(S[i], q))
+        q -= alpha[i] * Y[i]
+    gamma_k = (np.dot(S[-1], Y[-1]))/(np.dot(Y[-1], Y[-1]))
+    H = gamma_k * np.eye(n)
+    z = H @ q
+    for i in range(l):
+        beta[i] = (R[i] * np.dot(Y[i], z))
+        z += S[i] * (alpha[i] - beta[i])
+    return -z
 
 if __name__ == "__main__":
     x = np.array([2.0, 3.0])
@@ -230,3 +231,4 @@ if __name__ == "__main__":
     plt.xlabel("Iteration")
     plt.ylabel("error")
     plt.show()
+
