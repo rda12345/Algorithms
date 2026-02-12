@@ -53,7 +53,6 @@ from jax import grad
 import matplotlib.pyplot as plt
 from gradient_descent import gradient
 
-# TODO: insert a line search
 
 def f(x: np.ndarray) -> float:
     """
@@ -72,6 +71,7 @@ def line_search(
 ) -> float:
     """
     Performs a line search to obtain a good step size.
+    The search follows the Armijo condition (sufficient decrease)
     """
     alpha = 1.0
     while objective_function(x + alpha * p) > objective_function(x) + c * alpha * np.dot(gradient, p):
