@@ -12,8 +12,6 @@ import random
 from euclid import gcd
 import numpy as np
 
-
-
 def pollard_rho(n: int) -> list[int]:
     """
     Heuristic algorithm to find the factors of a composite number.

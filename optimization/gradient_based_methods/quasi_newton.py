@@ -62,6 +62,22 @@ def f(x: np.ndarray) -> float:
     return 0.5 * jnp.dot(x, x)
 
 
+def line_search(
+        objective_function,
+        gradient: np.ndarray,
+        x: np.ndarray,
+        p: np.ndarray,
+        beta: float = 0.5,
+        c: float = 1e-4
+) -> float:
+    """
+    Performs a line search to obtain a good step size.
+    """
+    alpha = 1.0
+    while objective_function(x + alpha * p) > objective_function(x) + c * alpha * np.dot(gradient, p):
+        alpha *= beta
+    return alpha
+
 def BFGS_inv_hessian(
         rho: np.ndarray,
         s: np.ndarray,
@@ -81,7 +97,6 @@ def BFGS(
         objective_function,
         gradient: np.ndarray,
         x: np.ndarray,
-        eta: float = 0.1,
         max_iter: int = 100,
         threshold: float = 1e-6
 ) -> float:
@@ -95,7 +110,6 @@ def BFGS(
         objective_function
         gradient (np.ndarray): gradient of the objective function at point x
         x (np.ndarray): initial search point
-        eta (float): learning rate
         max_iter (int): maximum number of iterations
         threshold (float): convergence threshold
 
@@ -108,6 +122,7 @@ def BFGS(
         g = gradient(objective_function, x)
 
         p = H @ g
+        eta = line_search(objective_function, g, x, p)
         x_new = x - eta * p
         history.append(x_new)
 
@@ -167,6 +182,7 @@ def LBFGS(
         else:
             p = descent_direction(g, S, Y, R)
 
+        eta = line_search(objective_function, g, x, p)
         x_new = x + eta * p
         history.append(x_new)
 
@@ -218,17 +234,19 @@ def descent_direction(g: np.ndarray, S: list, Y: list, R: list) :
 
 if __name__ == "__main__":
     x = np.array([2.0, 3.0])
-    #x_opt, history = BFGS(f, gradient, x=x)
-    #error = [np.linalg.norm(x - x_opt) for x in history]
-    #print(f"Error: {np.linalg.norm(x_opt) * 100}%")
+    x_opt, history = BFGS(f, gradient, x=x)
+    error_bfgs = [np.linalg.norm(x - x_opt) for x in history]
+    print(f"Error: {np.linalg.norm(x_opt) * 100}%")
 
     x_opt, history = LBFGS(f, gradient, eta=0.1, x=x)
-    error = [np.linalg.norm(x - x_opt) for x in history]
+    error_lbfgs = [np.linalg.norm(x - x_opt) for x in history]
     print(f"Error: {np.linalg.norm(x_opt)*100}%")
 
     plt.figure()
-    plt.plot(error)
+    plt.plot(error_bfgs, label="BFGS")
+    plt.plot(error_lbfgs, label="L-BFGS")
     plt.xlabel("Iteration")
     plt.ylabel("error")
+    plt.legend()
     plt.show()
 
