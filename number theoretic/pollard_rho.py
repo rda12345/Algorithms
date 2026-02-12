@@ -3,7 +3,6 @@ Pollard Rho Algorithm
 
 A heuristic algorithm to find the factors of a composite number.
 
-
 Complexity: Since it is a heuristic algorithm there are no guarantees regarding it running time
             or success. Nevertheless, we expect that the algorithm finds a prime in O(sqrt(p)) iterations,
             where p is a prime factor of n. Therefore, the expected running time is O(n^{1/4}).
