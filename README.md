@@ -5,6 +5,7 @@ The repository contains code, explanations and complexity analysis, of algorithm
 ## Machine learning ##
 - k-mean clustering
 - Multiplicative weights: weighted majority 
+- Support Vector Machine (SVM)
 
 ## Matrix operations  ##
 
@@ -18,6 +19,7 @@ The repository contains code, explanations and complexity analysis, of algorithm
 - Modular exponentiation
 - Modular linear equation solver
 - Primality: pseudo prime, Miller-Rabin, witness
+- Pollard-Rho: heuristic algorithm to evaluate the prime factorization of a composite number
 
 ## Optimization ##
 
