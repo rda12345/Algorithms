@@ -21,8 +21,13 @@ Key idea: The curvature of a function (encoded by the Hessian) can be approximat
     This leads to numerical stability and efficiency of the algorithm.
 
 Note: Many implementations of the BFGS determine the learning rate by a line search.
-    This improves the numerical stability and efficiency of the algorithm. The present
-    implementation assumes a small constant learning rate.
+    This improves the numerical stability and efficiency of the algorithm.
+    We perform a line search employing the Armijo condition (sufficient decrease),
+    requiring that the step size, alphas, satisfies
+    f(x + alpha * p) <= f(x) + c * alpha * grad(f(x)).T @ p,
+    where, f is the optimization function, c is taken to be 10^{-4}, p is the descent direction and x is the
+    current optimization point.
+    :
 
 - L-BFGS (Limited memory BFGS): Doesn't store the approximation of the inverse
         Hessian, but only the last m curvature pairs. From the m pairs
@@ -147,7 +152,6 @@ def LBFGS(
         gradient: np.ndarray,
         x: np.ndarray,
         m: int = 10,
-        eta: float = 0.1,
         max_iter: int = 100,
         threshold: float = 1e-6
 ) -> float:
