@@ -15,6 +15,7 @@ Complexity: for an n by n SPD matrix, conjugate_gradient finds the exact solutio
 """
 import numpy as np
 import matplotlib.pyplot as plt
+# TODO: explain the theory and why the algo works
 
 
 def conjugate_gradient(
