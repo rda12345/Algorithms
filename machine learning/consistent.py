@@ -17,8 +17,8 @@ The algorithm is guaranteed to converge after at most |H|-1 mistakes, where H is
 Complexity: O(|H|*N), where N is the number of examples.
 
 We test the online and batch versions of the algorithm on two corresponding problems:
-1. A simple threshold problem, where the data points are in the interval [0,1], and the labels are 1 if the data point is greater than 0.5, and -1 otherwise.
- The hypotheses class consists of all the discrete threshold functions on the real line.
+1. A simple threshold problem, where the data points are in the interval [0,1], and the labels are 1 if pixel 300 > 0.5, and -1 otherwise.
+ The hypotheses class consists of discrete threshold functions on the real line.
 2. A digit classification problem, where the data points are images of digits, and the labels are 1 if the digit is 7, and 0 if the digit is 4.
  The hypotheses class consists of threshold functions on each pixel, i.e., h_i(x) = 1 if x[i] >= t, and 0 otherwise, for some threshold t.
 """
@@ -82,8 +82,6 @@ def consistent_batch(data: np.ndarray, labels: np.array, hypotheses: list) -> Ca
     
 
 if __name__ == "__main__":    
-    from sklearn.datasets import fetch_openml
-
     # Points are +1 if pixel 300 > 0.5, else -1
     data = np.random.rand(1000, 784)
     labels = np.where(data[:, 300] > 0.5, 1, -1)
@@ -110,6 +108,7 @@ if __name__ == "__main__":
     else:        print("No consistent hypothesis found (batch learning).")
 
 
+    from sklearn.datasets import fetch_openml
 
     #Load MNIST data set and filter digits 4 and 7
     mnist = fetch_openml('mnist_784', version=1, as_frame=False)
