@@ -120,7 +120,7 @@ if __name__ == "__main__":
 
     ## halving learner for discrete threshold functions on the real line
     data = np.linspace(0, 1,100, endpoint=False)
-    labels = np.where(data >= 0.3, 1, -1)
+    labels = np.where(data >= 0.6, 1, -1)
     # split data into train and test sets
     N = len(labels)
     split = int(0.8 * N)    # 80% for training, 20% for testing
