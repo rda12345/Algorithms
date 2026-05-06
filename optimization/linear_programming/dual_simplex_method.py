@@ -1,5 +1,0 @@
-"""
-Dual Simplex Method
-
-Complexity:
-"""
