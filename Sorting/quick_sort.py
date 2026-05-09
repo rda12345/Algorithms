@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 """
 Quick sort algorithm
+
+Complexity: O(n*log(n)) on average, O(n^2) in the worst case, and O(n) in the best case.
 """
 import random
 
