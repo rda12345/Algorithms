@@ -17,7 +17,7 @@ Complexity:
 """
 import numpy as np
 import matplotlib.pyplot as plt
-#TODO complete example
+
 def ellipsoid(data: np.ndarray, labels: np.ndarray) -> callable:
     """
     The ellipsoid algorithm maintains implicitly maintains an ellipsoid
