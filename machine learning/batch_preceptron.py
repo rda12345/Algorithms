@@ -8,7 +8,6 @@ and B is the margin of the data, min{||w||: for all i=1, ..., m, y_i(w^T x_i) >=
 Complexity: Each iteration has a complexity of O(d) (taking an inner product), where d is the dimension of the data.
             Therefore, after T iterations, the total running time is O(T*d) = O(R^2*B^2*d).
 """
-#TODO: verify the complexity, test the algorithm, something is wierd with the convergence guarantee, maybe it is R^2/B^2 instead of R^2*B^2
 import numpy as np
 import matplotlib.pyplot as plt
 
