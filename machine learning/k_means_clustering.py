@@ -18,7 +18,7 @@ def distance(a, b):
     """
     return np.linalg.norm(a - b)
 
-#TODO: code the algorithm
+
 def lloyd_clustering(data: np.ndarray, k:int, max_iters:int=100):
     """
     Returns the position of k "centers" associated with the k-means clustering algorithm.
