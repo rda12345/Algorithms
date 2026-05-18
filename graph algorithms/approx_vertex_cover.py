@@ -15,7 +15,7 @@ Complexity: runtime scales as O(V + E)
 """
 from graph import Graph, Node, Edge
 import numpy as np
-#TODO: complete the algorithm
+
 def approx_vertex_cover(G: Graph) -> set[Node]:
     """
     Returns a vertex cover which at most twice the size of the optimal
