@@ -67,6 +67,7 @@ class Digraph(object):
     def __init__(self):
         self.nodes = []
         self.edges = {}
+        self.edges_set = set()  # set of all edges in the graph, which allows for O(1) time complexity for edge removal
     
     def add_node(self,node):
         if node in self.nodes:
@@ -76,14 +77,15 @@ class Digraph(object):
             self.edges[node] = []
             
     
-    def add_edge(self,edge):
+    def add_edge(self, edge):
         src = edge.get_source()
         dest = edge.get_destination()
-         
+
 
         if not (src in self.nodes and dest in self.nodes):
             raise ValueError('Node not in the graph')
         self.edges[src].append(dest)
+        self.edges_set.add(edge)
     
     def children_of(self,node):
         return self.edges[node]
