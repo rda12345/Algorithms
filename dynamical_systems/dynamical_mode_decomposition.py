@@ -34,7 +34,7 @@ def dynamical_mode_dedcomposition(data: np.ndarray, r: int) -> tuple[np.ndarray,
     V = Vt.conj().T
     A_reduced = U.conj().T @ data[:, 1:] @ (V / S)  # reduced space linear operator, dimensions: (r,r).  V / S is equivalent to V @ np.linalg.inv(np.diag(S)).
     E, W = np.linalg.eig(A_reduced)
-    return data[:, 1:] @ (V / S) @ W    # dynamical modes are given by the eigenvectors of the reduced space linear operator,
+    return E, data[:, 1:] @ (V / S) @ W    # dynamical modes are given by the eigenvectors of the reduced space linear operator,
                                          # mapped back to the original space.
 
 
@@ -57,7 +57,7 @@ if __name__ == "__main__":
         data[:, t] = modes @ (eigenvalues ** t)
 
     # apply DMD to recover the dominant modes
-    recovered_modes = dynamical_mode_dedcomposition(data, r)
+    eigenvalues, recovered_modes = dynamical_mode_dedcomposition(data, r)
 
     # compare using best-match overlap (modes may be in different order)
     overlaps = np.zeros((r,))
@@ -70,5 +70,6 @@ if __name__ == "__main__":
         overlaps[i] = best_overlap
 
     assert np.all(overlaps > 0.9), "Recovered modes do not match the original modes well."
+    assert np.all(np.abs(eigenvalues) < 1), "Recovered eigenvalues are not stable."
     print("DMD successfully recovered the dominant modes with high overlap.")
 
