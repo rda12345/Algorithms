@@ -71,10 +71,10 @@ if __name__ == "__main__":
     print(f"Distance preservation: {preserved}\n")
 
     print("---------- Random Sign Matrix Variant --------")
-    projected_X_random_sign = jl_random_sign(X, m)
-    projected_distances_random_sign = np.linalg.norm(projected_X_random_sign[:, None] - projected_X_random_sign[:, :, None], axis=0)
-    preserved_random_sign = np.all(((1 - epsilon) * original_distances <= projected_distances_random_sign) & (projected_distances_random_sign <= (1 + epsilon) * original_distances))
-    print(f"Distance preservation: {preserved_random_sign}")
+    projected_X_achlioptas = jl_random_sign(X, m)
+    projected_distances_achlioptas = np.linalg.norm(projected_X_achlioptas[:, None] - projected_X_achlioptas[:, :, None], axis=0)
+    preserved_achlioptas = np.all(((1 - epsilon) * original_distances <= projected_distances_achlioptas) & (projected_distances_achlioptas <= (1 + epsilon) * original_distances))
+    print(f"Distance preservation: {preserved_achlioptas}")
 
 
 

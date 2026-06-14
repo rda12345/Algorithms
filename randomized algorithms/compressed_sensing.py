@@ -24,6 +24,11 @@ has the RIP with parameters k and epsilon if for all k-sparse vectors x in R^d, 
 Solution of the LP problem: We rewrite min ||x||_1 as min sum_{i=1}^d t_i subject to -t_i <= x_i <= t_i for all i, and Ax = y,
 and then restating thise inequalities in the canonical form required by linear programming solvers.
 
+Matrices with the RIP:
+- Random Gaussian matrices: A_ij ~ N(0, 1/m) with m = O(k log(d)) rows.
+- Random rows of the DFT matrix: A is a partial Fourier matrix, with m = O(k log^c(d)) rows.
+- Best known deterministic constructions: m = O(k^{1.99} log(d)) rows.
+
 Notes:
 - The procedure corresponds to a dimension reduction of the (infinite) set of k-sparse vectors in R^d.
 - The number of measurements required is m = O(k log(d)/epsilon^2), which is much smaller than d, the original dimension.
