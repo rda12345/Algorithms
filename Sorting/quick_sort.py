@@ -7,7 +7,7 @@ Complexity: O(n*log(n)) on average, O(n^2) in the worst case, and O(n) in the be
 """
 import random
 
-def quick_sort(L,low,high):
+def quick_sort(L: list, low: int, high: int) -> None:
     ''' Sorts the list L[low:high] a list employing Quick sort recursively.
     
         Input 
@@ -64,7 +64,7 @@ def quick_sort(L,low,high):
 
 
 
-def find_pivot(L,low,high):
+def find_pivot(L: list, low: int, high: int):
     ''' Sorts three elements of L and returns a tuple containing list and the pivot
         Input 
             L: list
@@ -90,9 +90,10 @@ def find_pivot(L,low,high):
 
 
 ## Test 
-#L = [2,6,5,3,8,7,1,0,4]
-L = [random.randint(1, 20) for i in range(20)]
-print(L)
-quick_sort(L, 0, len(L))
-print(L)
-
+"""
+if __name__ == '__main__':
+    L = [random.randint(1, 20) for i in range(20)]
+    print(L)
+    quick_sort(L, 0, len(L))
+    print(L)
+"""

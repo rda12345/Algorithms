@@ -50,6 +50,7 @@ The repository contains code, explanations and complexity analysis, of algorithm
 - Merge sort
 - Quick sort
 - Selection sort
+- Counting sort
 
 
 ## General  ##

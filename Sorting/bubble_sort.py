@@ -5,7 +5,7 @@ Bubble sort
 """
 
 # Function implementing bubble sort algorithm. The algorithm scales O(n^2)
-def bubble_sort(L):
+def bubble_sort(L: list) -> list:
     '''
     Sorts the list by applying bubble sort
     

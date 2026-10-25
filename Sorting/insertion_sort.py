@@ -5,7 +5,7 @@ Insertion sort
 """
 
 # Function implementing insertion sort algorithm. The algorithm scales O(n^2)
-def insertion_sort(L):
+def insertion_sort(L: list) -> list:
     '''
     Sorts the list by applying insertion sort
     

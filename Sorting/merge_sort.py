@@ -6,7 +6,7 @@ Merge sort
 
 
 # Function implementing insertion sort algorithm. The algorithm scales O(n*log(n))
-def merge_sort(L):
+def merge_sort(L: list) -> list:
     '''
     Sorts the list by applying bubble sort
     
@@ -28,10 +28,10 @@ def merge_sort(L):
     sorted_L2 = merge_sort(L2)
     
     # Merge the sorted lists and return
-    return merge(sorted_L1,sorted_L2)
+    return merge(sorted_L1, sorted_L2)
     
 
-def merge(L1,L2):
+def merge(L1: list, L2: list) -> list:
     '''
     L1 : list, sorted.
     L2 : list, sorted.
