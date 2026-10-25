@@ -11,7 +11,7 @@ counting sort is utilized as a subroutine of radix sort. The stability property 
 to sort properly.   
 """
 
-def counting_sort(A: list, k) -> list:
+def counting_sort(A: list[int], k:int ) -> list[int]:
     """
     Args:
         A (list): Input array
@@ -29,9 +29,9 @@ def counting_sort(A: list, k) -> list:
     for i in range(1, k+1):
         C[i] += C[i-1]
     # C[i] now contains the number elements less than or equal to i
-    for j in reversed(range(len(A))):
-        B[C[A[j]]-1] = A[j]   
+    for j in reversed(range(len(A))): 
         C[A[j]] -= 1    # in case of duplicates, prevents equal elements from being stored in the same spot in B
+        B[C[A[j]]] = A[j]  
     return B
 
 """
