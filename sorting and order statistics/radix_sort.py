@@ -8,6 +8,12 @@ For the algorithm to sort properly, the sorting of each digits should be stable 
 It is implemented with counting sort algorithm (O(n + k) run time for stable integer sorting in the range [0, k]).
 
 Run time: O(d(n + k)) to sort n d digit numbers, where each digit is in the range [0, k].
+          When sorting b-bit numbers, we divide them to r-bit digits, leading to k = 2^r, and d = ceil(b/r).
+          The resulting run time is then O((b/r)*(n + 2^r)), which is minimized when r = floor(lg(n)), leading
+          to a linear run time, O(n).
+
+Space complexity: When utilizing counting sort as the stable sorting method, the subroutine is not inplace,
+                  leading to additional required space.
 """
 
 def counting_sort_indicies(A: list[int], k:int ) -> list[int]:
