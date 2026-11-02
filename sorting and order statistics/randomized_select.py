@@ -7,7 +7,10 @@ The i'th order statistic is the i'th smallest element, e.g., the first order sta
 The selection problem is defined as follows, given a set A of distinct numbers and an integer
 1 \leq i \leq n, return the element x which is larger than i-1 other elements of A.
 
-Time complexity: worst case of O(n^2), where n = len(A). Expected runtime of O(n).
+Time complexity: worst case of O(n^2), where n = len(A). Each time the pivot can be the minimum or maximum element,
+randomized partition then takes O(n) time, giving the recursion relation T(n) = T(n-1) + O(n).
+The expected runtime is O(n). 
+The run time of randomized partition is O(r-p).
 """
 import random
 
