@@ -9,12 +9,13 @@ The selection problem is defined as follows, given a set A of distinct numbers a
 
 Time complexity: worst case of O(n^2), where n = len(A). Each time the pivot can be the minimum or maximum element,
 randomized partition then takes O(n) time, giving the recursion relation T(n) = T(n-1) + O(n).
-The expected runtime is O(n). 
+The expected runtime is O(n), since the probability of choosing a "good" pivot element in randomized partition subroutine
+is >1/2. 
 The run time of randomized partition is O(r-p).
 """
 import random
 
-def randomized_partition(A: list, p:int, r:int) -> list:
+def randomized_partition(A: list, p: int, r: int) -> list:
     """
     Partitions the array A[p:(r+1)] into two (possibly empty) subarrays
     A[p:q] and A[q+1:(r+1)], such that the former includes the elements in A[p:(r+1)] which
@@ -27,7 +28,7 @@ def randomized_partition(A: list, p:int, r:int) -> list:
         r (int): highest element's index
     
     Returns:
-        (list)
+        (int): the position of the pivot
 
     Run time: O(n)
     """
