@@ -43,7 +43,7 @@ The repository contains code, explanations and complexity analysis, of algorithm
 - Topological sort
 
 
-## Sorting algorithms ##
+## Sorting and order statistics algorithms ##
 
 - Bubble sort
 - Insertion sort
@@ -51,6 +51,10 @@ The repository contains code, explanations and complexity analysis, of algorithm
 - Quick sort
 - Selection sort
 - Counting sort
+- Radix sort
+- Bucket sort
+- Randomized Select
+- Select
 
 
 ## General  ##
